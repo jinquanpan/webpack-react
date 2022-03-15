@@ -1,51 +1,54 @@
 const path = require('path')
-const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   entry:'./index.js',
   output:{
     path:path.join(__dirname,'.dist'),
     filename:'[name].js'
   },
-  target: "web",
   module: { 
     rules: [
       {
         test: /\.(js|jsx)$/,
         use: {
           loader:"babel-loader",
-          options:{
-            presets:["@babel/preset-flow"]
-          }
         },
       },
       { 
         test: /\.css$/, 
-        use: ['style-loader', 'css-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {
         test: /\.scss$/,
-        use:["style-loader", "css-loader", "sass-loader" ]
+        use:[MiniCssExtractPlugin.loader, "css-loader", "sass-loader" ]
       },
     ] 
   },
   plugins:[
     new CleanWebpackPlugin(),
-    new webpack.ProgressPlugin(),
     new HtmlWebpackPlugin({
       template:'./index.html',
       title: "Development",
-      cache: false
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new MiniCssExtractPlugin({
+      filename:'[name].[hash:8].css'
+    })
   ],
+  target: "web",
   devServer:{
     compress: true,
-    // hot:true,
+    hot:true,
     open:true,
     port:8880
   },
-  performance: { hints: false },
+  // performance: { hints: false },
   mode:'production'
+}
+// 模块热更新
+if (module.hot) {
+  module.hot.accept("./js/element.js", (res) => {
+    console.log("element 模块发生热更新了",res)
+  })
 }
