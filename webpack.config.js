@@ -43,7 +43,7 @@ module.exports = {
     open:true,
     port:8880
   },
-  // performance: { hints: false },
+  performance: { hints: false },
   mode:'production'
 }
 // 模块热更新
