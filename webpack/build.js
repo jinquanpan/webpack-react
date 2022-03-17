@@ -84,6 +84,7 @@ const build = {
   mode: "production",
   devtool:'cheap-module-source-map' // 映射浏览器报错文件位置
 }
+console.log(build.module.rules,build.plugins)
 // 
 
 module.exports = Object.assign(base,build)

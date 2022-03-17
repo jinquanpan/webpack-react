@@ -5,14 +5,14 @@ module.exports =  {
   entry: ['./src/index.js','./src/index.html'],
   module: {
     rules: [
-      {
-        test:/\.js/,
-        exclude:'/node_modules/', //排除校验文件
-        enforce:'pre', // 提前加载
-        use:{
-          loader:'eslint-loader'
-        }
-      },
+      // {
+      //   test:/\.js/,
+      //   exclude:'/node_modules/', //排除校验文件
+      //   enforce:'pre', // 提前加载
+      //   use:{
+      //     loader:'eslint-loader'
+      //   }
+      // },
       { //处理图片格式
         test: /\.(png|jpg|gif)$/i,
         use: [
@@ -28,8 +28,9 @@ module.exports =  {
           }
         ]
       },
+      // presets: []
       { // es6转es5
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader', 
@@ -43,7 +44,8 @@ module.exports =  {
                     "chrome": "78",
                     "ie": "9"
                   }
-                }
+                },
+                '@babel/preset-react'
               ]
             ],
             cacheDirectory: true //开启babel缓存
