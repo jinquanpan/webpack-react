@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
+
 import './index.less';  // 引入样式文件
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      aa:111
-    };
+
+class Home extends Component {
+
+  jump = () => {
+    console.log('跳转')
+    this.props.history.push('/login')
   }
+
   render() {
     return (
       <div className="main">
-        <div>我是首页</div>
-        <div>{this.state.aa}</div>
+        <div>我是首页2</div>
+        <div onClick={this.jump}>跳转</div>
       </div>
     );
   }
 }
-export default App;
+export default Home;
