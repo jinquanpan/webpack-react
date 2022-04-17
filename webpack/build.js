@@ -3,10 +3,14 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
+const {name,version} = require("../package.json")
+const makeEntryScripts = require('./make-entry-scripts')
+
+const env = process.env
 
 const build = {
   output: {
-    path: path.resolve(__dirname, '../build'),
+    path: path.resolve(__dirname, `../build/${name}-${version}`),
     filename: './js/[name].js',
     publicPath:'/' //所有输出资源在引入公共组件时的公共路径
   },
@@ -64,6 +68,7 @@ const build = {
     ]
   },
   plugins: [
+    new makeEntryScripts({env }),
     ...base.plugins,
     new MiniCssExtractPlugin({
       filename:'css/[name].css',
@@ -84,7 +89,5 @@ const build = {
   mode: "production",
   devtool:'cheap-module-source-map' // 映射浏览器报错文件位置
 }
-console.log(build.module.rules,build.plugins)
-// 
 
 module.exports = Object.assign(base,build)
