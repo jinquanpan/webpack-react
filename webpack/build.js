@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
 const {name,version} = require("../package.json")
 const makeEntryScripts = require('./make-entry-scripts')
+const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 
 const env = process.env
 
@@ -68,7 +69,7 @@ const build = {
     ]
   },
   plugins: [
-    new makeEntryScripts({env }),
+    // new makeEntryScripts({env }),
     ...base.plugins,
     new MiniCssExtractPlugin({
       filename:'css/[name].css',
@@ -84,10 +85,24 @@ const build = {
         }
       }
     }),
-    new CleanWebpackPlugin() // 替换打包后的文件夹
+    new CleanWebpackPlugin(), // 替换打包后的文件夹
+    new SentryWebpackPlugin({
+      // sentry-cli configuration - can also be done directly through sentry-cli
+      // see https://docs.sentry.io/product/cli/configuration/ for details
+      url:'https://sentry.isjike.com/',
+      authToken: "48fd06e9b4134bb19ac54222febb4ac57da672408fea492591f4e7246eafb000",
+      release: "1.1.6",
+      org:'sentry',
+      project:"react-demo",
+      // other SentryWebpackPlugin configuration
+      ignore: ["node_modules", "webpack.config.js"],
+      cleanArtifacts:true,
+      // include: "build/webpack-react-1.1.6/js",
+      // urlPrefix: "~/js/"
+    }),
   ],
   mode: "production",
-  devtool:'cheap-module-source-map' // 映射浏览器报错文件位置
+  devtool:'source-map' // 映射浏览器报错文件位置
 }
 
 module.exports = Object.assign(base,build)

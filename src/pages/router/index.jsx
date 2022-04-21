@@ -6,13 +6,14 @@ import Home from '../home/index.jsx';
 import Login from '../login/index.jsx';
 
 Sentry.init({
-  dsn: 'http://33d295de0f00478293e87e5678ff462a@sentry.isjike.com/12', // c4e5aad16fc942bbaec0dd3ef3903a72由每个项目唯一生成。localhost:9000/5对应的是sentry的dns地址。
+  dsn: 'https://72552f7940e7478ea49ebb0a8fd705de@sentry.isjike.com/11', // c4e5aad16fc942bbaec0dd3ef3903a72由每个项目唯一生成。localhost:9000/5对应的是sentry的dns地址。
   integrations: [
     new Integrations.BrowserTracing()
   ],
   tracesSampleRate: 1.0,
   tracesSampler: 1.0,
-
+  release: "1.1.6",
+  environment:"production"
 });
 
 class App extends Component {

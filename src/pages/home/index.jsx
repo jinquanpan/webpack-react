@@ -20,6 +20,10 @@ class Home extends Component {
     console.log('退出')
   }
 
+  error= ()=> {
+    console.log(xll)
+  }
+
   render() {
     return (
       <div className="main">
@@ -27,6 +31,7 @@ class Home extends Component {
         <div onClick={this.jump}>跳转</div>
         <div onClick={this.toke}>登陆</div>
         <div onClick={this.exit}>退出</div>
+        <div onClick={this.error}>报错</div>
       </div>
     );
   }

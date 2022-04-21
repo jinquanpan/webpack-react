@@ -1,6 +1,6 @@
 {
   "name": "webpack-react",
-  "version": "1.0.0",
+  "version": "1.1.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -22,6 +22,7 @@
     "@babel/preset-env": "^7.16.11",
     "@sentry/react": "^6.18.2",
     "@sentry/tracing": "^6.18.2",
+    "@sentry/webpack-plugin": "^1.18.8",
     "@webpack-cli/serve": "^1.6.1",
     "autoprefixer": "^9.7.1",
     "babel-loader": "^8.2.3",
