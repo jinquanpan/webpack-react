@@ -1,7 +1,7 @@
 pipeline {
   agent any 
   environment {
-    ROOT = "/var/lib/jenkins/workspace"
+    ROOT = "/var/lib/jenkins/workspace/webpack-react"
   }
   stages {
     stage('git') {
