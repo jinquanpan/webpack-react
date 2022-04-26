@@ -4,7 +4,7 @@ import './index.less'; // 引入样式文件
 class Login extends Component {
 
   jump=()=> {
-    console.log('跳转' )
+    console.log('跳转',sss)
     this.props.history.push('/')
   }
   render() {

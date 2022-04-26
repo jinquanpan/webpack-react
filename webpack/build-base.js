@@ -26,7 +26,6 @@ module.exports =  {
                 }),
                 require('postcss-normalize')()
               ],
-              sourceMap: true
             }
           }
         ]
@@ -49,7 +48,6 @@ module.exports =  {
                 }),
                 require('postcss-normalize')()
               ],
-              sourceMap: true
             }
           },
           'less-loader'
