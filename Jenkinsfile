@@ -8,7 +8,7 @@ pipeline {
       steps {
         sh '''
           cd ${ROOT}
-          git checkout dev && git pull origin dev
+          git checkout webpack4 && git pull origin webpack4
         '''
       }
     }
