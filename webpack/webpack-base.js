@@ -1,8 +1,12 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const htmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
+const cwd = process.cwd()
+const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
 
 module.exports =  {
-  entry: ['./src/index.js','./src/index.html'],
+  entry: ['./src/index.js','./public/index.ejs'],
   module: {
     rules: [
       // {
@@ -32,6 +36,7 @@ module.exports =  {
       { // es6转es5
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
+        include:path.resolve(cwd,'src'),
         use: {
           loader: 'babel-loader', 
           options: {
@@ -64,21 +69,34 @@ module.exports =  {
           },
         ],
       },
-      {
-        test: /\.(html)$/,
-        use: {
-          loader: 'html-loader',
-          options: {
-            attrs: ['img:src'],
-          }
-        }
-      },
     ]
   },
+  resolve:{
+    alias:{
+      "@": path.resolve(cwd,'src'),
+    }
+  },
   plugins: [
-    new HtmlWebpackPlugin({
-      template:'./src/index.html'
+    new htmlWebpackPlugin({
+      template:'./public/index.ejs',// 静态文件要识别 htmlWebpackPlugin.options 属性要把html改成ejs文件
+      title:'<script type="text/javascript" src="//192.168.2.52:3001/js/app.js"></script> ', 
+      filename: './index.html'
     }),
+    // new InterpolateHtmlPlugin(htmlWebpackPlugin,{ PUBLIC_URL: './public/index.html',title:'555' }),
+    new MiniCssExtractPlugin({
+      filename:'css/[name].css',
+    }),
+    new OptimizeCssAssetsWebpackPlugin({ //压缩css文件
+      cssProcessorPluginOptions: {
+        preset: ['default',{ discardComments: { removeAll: true } }]
+      },
+      cssProcessorOptions: {
+        map: {
+          inline: false,
+          annotation: true
+        }
+      }
+    })
   ],
   
 };

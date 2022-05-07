@@ -7,6 +7,11 @@ const {name,version} = require("../package.json")
 const makeEntryScripts = require('./make-entry-scripts')
 const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 const makeExternals = require("./config/make-externals")
+const TerserPlugin = require("terser-webpack-plugin");
+const os = require("os");
+
+console.log(4411,base)
+
 
 const build = {
   output: {
@@ -20,8 +25,20 @@ const build = {
       ...base.module.rules,
     ]
   },
-  optimization: {    // 配置源映射这个配置必须
-    minimize: false,
+  optimization: {    
+    minimizer: [
+      // 压缩js
+      new TerserPlugin({
+        cache: path.join((os.tmpdir() - 1) + '', ".terser-webpack-plugin"),
+        extractComments: false,
+        sourceMap: true, // Must be set to true if using source-maps in production 配置源映射这个配置必须
+        terserOptions: {
+          compress: {
+            pure_funcs: ["console.log"], // 去除打印
+          },
+        },
+      }),
+    ],
     splitChunks: {
       chunks: "all",
       minSize: 100000,
@@ -40,10 +57,11 @@ const build = {
         },
       },
     },
+    usedExports: true,
   },
   // externals: makeExternals(),
   plugins: [
-    // new makeEntryScripts({env }),
+    new makeEntryScripts(),
     ...base.plugins,
     new MiniCssExtractPlugin({
       filename:'css/[name].css',
@@ -75,8 +93,10 @@ const build = {
       // urlPrefix: "~/js"
     }),
   ],
+
   mode: "production",
   devtool:'source-map' // 映射浏览器报错文件位置
 }
+
 
 module.exports = Object.assign(base,build)

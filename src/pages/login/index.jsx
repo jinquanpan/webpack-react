@@ -11,6 +11,7 @@ class Login extends Component {
     return (
       <div className="main">
         <div>标题</div>
+        <img src={require('@/img/phone.png')} alt="" />
         <div onClick={this.jump}>跳转</div>
       </div>
     );
