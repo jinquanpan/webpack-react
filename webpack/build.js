@@ -9,8 +9,7 @@ const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 const makeExternals = require("./config/make-externals")
 const TerserPlugin = require("terser-webpack-plugin");
 const os = require("os");
-
-console.log(4411,base)
+const webpack = require("webpack")
 
 
 const build = {
@@ -29,7 +28,7 @@ const build = {
     minimizer: [
       // 压缩js
       new TerserPlugin({
-        cache: path.join((os.tmpdir() - 1) + '', ".terser-webpack-plugin"),
+        cache: path.join(os.tmpdir(), ".terser-webpack-plugin"),
         extractComments: false,
         sourceMap: true, // Must be set to true if using source-maps in production 配置源映射这个配置必须
         terserOptions: {
@@ -66,32 +65,21 @@ const build = {
     new MiniCssExtractPlugin({
       filename:'css/[name].css',
     }),
-    new OptimizeCssAssetsWebpackPlugin({ //压缩css文件
-      cssProcessorPluginOptions: {
-        preset: ['default',{ discardComments: { removeAll: true } }]
-      },
-      cssProcessorOptions: {
-        map: {
-          inline: false,
-          annotation: true
-        }
-      }
-    }),
     new CleanWebpackPlugin(), // 替换打包后的文件夹
-    new SentryWebpackPlugin({
-      // sentry-cli configuration - can also be done directly through sentry-cli
-      // see https://docs.sentry.io/product/cli/configuration/ for details
-      url:'https://sentry.isjike.com/',
-      authToken: "48fd06e9b4134bb19ac54222febb4ac57da672408fea492591f4e7246eafb000",
-      release: "1.1.12",
-      org:'sentry',
-      project:"react-demo",
-      // other SentryWebpackPlugin configuration
-      ignore: ["node_modules", "webpack.config.js"],
-      // cleanArtifacts:true,
-      include: "build/webpack-react-1.0.0",
-      // urlPrefix: "~/js"
-    }),
+    // new SentryWebpackPlugin({
+    //   // sentry-cli configuration - can also be done directly through sentry-cli
+    //   // see https://docs.sentry.io/product/cli/configuration/ for details
+    //   url:'https://sentry.isjike.com/',
+    //   authToken: "48fd06e9b4134bb19ac54222febb4ac57da672408fea492591f4e7246eafb000",
+    //   release: "1.1.12",
+    //   org:'sentry',
+    //   project:"react-demo",
+    //   // other SentryWebpackPlugin configuration
+    //   ignore: ["node_modules", "webpack.config.js"],
+    //   // cleanArtifacts:true,
+    //   include: "build/webpack-react-1.0.0",
+    //   // urlPrefix: "~/js"
+    // }),
   ],
 
   mode: "production",

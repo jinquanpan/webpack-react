@@ -3,10 +3,9 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
 const cwd = process.cwd()
-const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
 
 module.exports =  {
-  entry: ['./src/index.js','./public/index.ejs'],
+  entry: ['./src/index.js'],
   module: {
     rules: [
       // {
@@ -78,11 +77,9 @@ module.exports =  {
   },
   plugins: [
     new htmlWebpackPlugin({
-      template:'./public/index.ejs',// 静态文件要识别 htmlWebpackPlugin.options 属性要把html改成ejs文件
+      template:'./public/index.html',// 静态文件要识别 htmlWebpackPlugin.options 属性要把html改成ejs文件
       title:'<script type="text/javascript" src="//192.168.2.52:3001/js/app.js"></script> ', 
-      filename: './index.html'
     }),
-    // new InterpolateHtmlPlugin(htmlWebpackPlugin,{ PUBLIC_URL: './public/index.html',title:'555' }),
     new MiniCssExtractPlugin({
       filename:'css/[name].css',
     }),
