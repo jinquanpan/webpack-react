@@ -1,7 +1,7 @@
 pipeline {
   agent any 
   environment {
-    ROOT = "/var/lib/jenkins/workspace/webpack-react"
+    ROOT = "/data/dist/webpack-react"
   }
   stages {
     stage('git') {
@@ -16,7 +16,7 @@ pipeline {
       steps {
         sh '''
           cd ${ROOT}
-          npm run build
+          git checkout webpack4 && npm run build
         '''
       }
     }
