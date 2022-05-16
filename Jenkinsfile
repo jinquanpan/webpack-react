@@ -4,13 +4,12 @@ pipeline {
     ROOT = "/data/dist/webpack-react"
   }
   stages {
-    stage('git') {
-      steps {
-        sh '''
-          cd ${ROOT}
-          pwd
-        '''
-      }
+    stage('Hello') {
+        steps {
+            echo 'Hello World'
+            echo ${ROOT}
+            pwd
+        }
     }
   }
 }
