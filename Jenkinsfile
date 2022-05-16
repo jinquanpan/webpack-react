@@ -3,5 +3,7 @@ pipeline {
   environment {
     ROOT = "/data/dist/webpack-react"
   }
+  stages {
 
+  }
 }
