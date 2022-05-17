@@ -1,23 +1,23 @@
-const base = require('./webpack-base')
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
 const {name,version} = require("../package.json")
 const makeEntryScripts = require('./make-entry-scripts')
 const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 const makeExternals = require("./config/make-externals")
 const TerserPlugin = require("terser-webpack-plugin");
 const os = require("os");
-const webpack = require("webpack")
-
+const webpack = require("webpack");
+const env = require("./config/buildEnv")
+const base = require('./webpack-base')(env)
+const paths = require('./config/paths')(env, { name, version })
+const htmlWebpackPlugin = require('html-webpack-plugin');
 
 const build = {
   output: {
     path: path.resolve(__dirname, `../build/${name}-${version}`),
-    filename: './js/[name].js',
+    filename: 'js/[name].[contenthash:10].js',
     publicPath:'/', //所有输出资源在引入公共组件时的公共路径
-    sourceMapFilename:'map/[name].js'
+    sourceMapFilename:'map/[name].[contenthash:10].js'
   },
   module: {
     rules: [
@@ -60,11 +60,20 @@ const build = {
   },
   // externals: makeExternals(),
   plugins: [
-    new makeEntryScripts(),
-    ...base.plugins,
-    new MiniCssExtractPlugin({
-      filename:'css/[name].css',
+    new webpack.DefinePlugin(env.stringified),
+    new makeEntryScripts({paths}),
+    new htmlWebpackPlugin({
+      template:'./public/index.html',// 静态文件要识别 htmlWebpackPlugin.options 属性要把html改成ejs文件
+      inject: false,  //是否引入js文件
+      title:'<script type="text/javascript" src="//192.168.2.52:3001/js/app.js"></script>', 
+      script:`<script type="text/javascript" src="${paths.appPath}/module/module.js"></script>`
     }),
+    ...base.plugins,
+    // new webpack.DllPlugin({
+    //   path: path.join(__dirname, '/[name].manifest.json'),
+    //   name: '[name]',
+    //   context: __dirname // 这里的上下文要和我们后面用的DllReferencePlugin的上下文一致。
+    // }),
     new CleanWebpackPlugin(), // 替换打包后的文件夹
     // new SentryWebpackPlugin({
     //   // sentry-cli configuration - can also be done directly through sentry-cli

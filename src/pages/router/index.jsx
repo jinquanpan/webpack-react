@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Home from '../home/index.jsx';
 import Login from '../login/index.jsx';
+import pageConfig from '../pageConfig.js?jkMakeAsync';
 
 // Sentry.init({
 //   dsn: 'https://72552f7940e7478ea49ebb0a8fd705de@sentry.isjike.com/11', // c4e5aad16fc942bbaec0dd3ef3903a72由每个项目唯一生成。localhost:9000/5对应的是sentry的dns地址。
@@ -31,7 +32,7 @@ class App extends Component {
             pathname:window.location.hash.slice(1) 
         }
       })
-      console.log('跳转',window.location.hash || '/')
+      console.log('跳转',window.location.hash || '/',pageConfig)
     })
   }
   render() {
