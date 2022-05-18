@@ -28,6 +28,7 @@ const build = {
     minimizer: [
       // 压缩js
       new TerserPlugin({
+        test: /\.js$/,
         cache: path.join(os.tmpdir(), ".terser-webpack-plugin"),
         extractComments: false,
         sourceMap: true, // Must be set to true if using source-maps in production 配置源映射这个配置必须
