@@ -23,6 +23,7 @@
     "@babel/preset-env": "^7.16.11",
     "@sentry/react": "^6.18.2",
     "@sentry/tracing": "^6.18.2",
+    "@sentry/webpack-plugin": "^1.18.9",
     "@webpack-cli/serve": "^1.6.1",
     "autoprefixer": "^9.7.1",
     "babel-loader": "^8.2.3",
@@ -76,5 +77,10 @@
       "no-alert": 2
     },
     "extends": "eslint:recommended"
+  },
+  "dependencies": {
+    "@babel/preset-react": "^7.17.12",
+    "node": "^14.4.0",
+    "node-bin-setup": "^1.1.0"
   }
 }

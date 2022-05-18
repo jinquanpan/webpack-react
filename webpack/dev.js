@@ -41,7 +41,7 @@ const dev = {
     compress:true,
     open:true,
     hot:true, 
-    port:8088
+    port:8089
   },
   mode: "development",
   devtool:'cheap-module-source-map' // 映射浏览器报错文件位置
