@@ -24,7 +24,7 @@ const build = {
       ...base.module.rules,
     ]
   },
-  optimization: {    
+  optimization: {  //优化  
     minimizer: [
       // 压缩js
       new TerserPlugin({
@@ -67,7 +67,7 @@ const build = {
       template:'./public/index.html',// 静态文件要识别 htmlWebpackPlugin.options 属性要把html改成ejs文件
       inject: false,  //是否引入js文件
       title:'<script type="text/javascript" src="//192.168.2.52:3001/js/app.js"></script>', 
-      script:`<script type="text/javascript" src="${paths.appPath}/module/module.js"></script>`
+      script:`<script type="text/javascript" src="${paths.appPath}webpack-react-1.0.0//module/module.js"></script>`
     }),
     ...base.plugins,
     // new webpack.DllPlugin({

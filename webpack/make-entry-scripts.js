@@ -6,7 +6,6 @@ class ModulePlugin {
   }
   apply(compiler) {
     const { paths } = this.options;
-    const assetsPublicPathPre = paths.appPath;
     const assetsPublicPath =  '/webpack-react-1.0.0/'
     compiler.plugin('emit', (compilation, next) => {
       let css = [];
@@ -16,8 +15,7 @@ class ModulePlugin {
           const chunk = compiler.chunks[chunkKey];
           for (const fileKey of Object.keys(chunk.files)) {
             
-            const file = assetsPublicPathPre
-              + assetsPublicPath
+            const file = assetsPublicPath
               + chunk.files[fileKey]
             if (/\.js$/i.test(file)) {
               js.push(file);
