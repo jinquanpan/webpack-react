@@ -3,17 +3,19 @@ const webpack = require('webpack');
 const { env } = require('../config/devEnv')
 const openBrowser = require('react-dev-utils/openBrowser');
 const { choosePort } = require('react-dev-utils/WebpackDevServerUtils');
+const { makeIp } = require('./utils')
 
 function main (){
   const { PROJECT } = env
   for (let i = 0; i < PROJECT.length; i++) {
     let el = PROJECT[i]
     const confg = require('../config/paths')(env,el)
+    let { port } = confg.pathConfig
+    confg.pathConfig.host = makeIp()
     const webpackCofing = require('../base/dev')(env,confg)
     startServer(webpackCofing)
-    openBrowser("http://localhost:8089")
+    openBrowser(`http://${makeIp()}:${port}`)
   }
-  
 }
 
 function startServer (webpackConfig) {

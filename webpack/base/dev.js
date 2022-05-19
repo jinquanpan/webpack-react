@@ -6,7 +6,6 @@ const makeExternals = require("../plugins/make-externals")
 module.exports = function (env,paths){
   const base = require('./webpack-base')(env,paths)
   let stringified = JSON.stringify(env)
-  console.log('env',env,paths)
   const dev = {
     output: {
       path: paths.appPath,
@@ -43,9 +42,9 @@ module.exports = function (env,paths){
     ],
     devServer:{
       compress:true,
-      // open:true,
       hot:true, 
-      port:8089
+      port:paths.pathConfig.port,
+      host:paths.pathConfig.host
     },
     mode: "development",
     devtool:'cheap-module-source-map' // 映射浏览器报错文件位置

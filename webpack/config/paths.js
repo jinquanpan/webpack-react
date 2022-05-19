@@ -9,9 +9,11 @@ const basePath = {
 module.exports = function (env,branch) {
   console.log(111,env)
   let projectPath = env.MODE === 'prod' ? basePath.prod : basePath.dev;
+  let projectConfig = require(path.resolve(cwd,'project',branch,'config'));
   return {
     appPath: projectPath,
     path: path.resolve(cwd,'project',branch),
-    pathConfig:path.resolve(cwd,'project',branch,'config')
+    cwd:cwd,
+    pathConfig:projectConfig[env.MODE]
   }
 }

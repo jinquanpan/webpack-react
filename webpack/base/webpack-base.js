@@ -1,10 +1,8 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
-const cwd = process.cwd()
 
 module.exports =  function(env,paths){
-  console.log('paths',paths)
   return {
     entry: path.resolve(paths.path, 'src','index.js'),
     module: {
@@ -36,7 +34,7 @@ module.exports =  function(env,paths){
         { // es6转es5
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
-          include:path.resolve(cwd,'src'),
+          include:path.resolve(paths.path,'src'),
           use: {
             loader: 'babel-loader', 
             options: {
@@ -64,7 +62,7 @@ module.exports =  function(env,paths){
           use: [
             {
               loader: require.resolve(
-                path.resolve(cwd, 'webpack/config/make-page-helper')
+                path.resolve(paths.cwd, 'webpack/config/make-page-helper')
               )
             }
           ]
