@@ -3,9 +3,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
 const cwd = process.cwd()
 
-module.exports =  function({env}){
+module.exports =  function(env,paths){
+  console.log('paths',paths)
   return {
-    entry: ['./src/index.js'],
+    entry: path.resolve(paths.path, 'src','index.js'),
     module: {
       rules: [
         // {
@@ -84,7 +85,7 @@ module.exports =  function({env}){
     },
     resolve:{
       alias:{
-        "@": path.resolve(cwd,'src'),
+        "@": path.resolve(paths.path,'src'),
       }
     },
     plugins: [

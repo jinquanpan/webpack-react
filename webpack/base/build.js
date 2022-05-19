@@ -1,15 +1,15 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const {name,version} = require("../package.json")
-const makeEntryScripts = require('./make-entry-scripts')
+const {name,version} = require("../../package.json")
+const makeEntryScripts = require('../plugins/make-entry-scripts')
 const SentryWebpackPlugin = require("@sentry/webpack-plugin");
-const makeExternals = require("./config/make-externals")
+const makeExternals = require("../plugins/make-externals")
 const TerserPlugin = require("terser-webpack-plugin");
 const os = require("os");
 const webpack = require("webpack");
-const env = require("./config/buildEnv")
+const env = require("../config/buildEnv")
 const base = require('./webpack-base')(env)
-const paths = require('./config/paths')(env, { name, version })
+const paths = require('../config/paths')(env, { name, version })
 const htmlWebpackPlugin = require('html-webpack-plugin');
 
 const build = {
