@@ -43,6 +43,7 @@ module.exports = function (env,paths){
     devServer:{
       compress:true,
       hot:true, 
+      open:true,
       port:paths.pathConfig.port,
       host:paths.pathConfig.host
     },

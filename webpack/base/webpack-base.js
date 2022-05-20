@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
 
 module.exports =  function(env,paths){
+  console.log('paths',paths)
   return {
     entry: path.resolve(paths.path, 'src','index.js'),
     module: {
@@ -34,22 +35,12 @@ module.exports =  function(env,paths){
         { // es6转es5
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
-          include:path.resolve(paths.path,'src'),
           use: {
             loader: 'babel-loader', 
             options: {
               presets: [
-                [
-                  '@babel/preset-env',{
-                    useBuiltIns: "usage", //按需引入使用的polyfill
-                    corejs: { version: 3 }, //解决查找不到的core-js问题
-                    targets: { // 指定兼容性处理哪些浏览器
-                      "chrome": "78",
-                      "ie": "9"
-                    }
-                  },
-                  '@babel/preset-react'
-                ]
+                '@babel/preset-env',
+                '@babel/preset-react'
               ],
               cacheDirectory: true //开启babel缓存
             }

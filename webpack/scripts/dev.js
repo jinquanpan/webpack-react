@@ -1,7 +1,6 @@
 const webpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
 const { env } = require('../config/devEnv')
-const openBrowser = require('react-dev-utils/openBrowser');
 const { choosePort } = require('react-dev-utils/WebpackDevServerUtils');
 const { makeIp } = require('./utils')
 
@@ -14,7 +13,6 @@ function main (){
     confg.pathConfig.host = makeIp()
     const webpackCofing = require('../base/dev')(env,confg)
     startServer(webpackCofing)
-    openBrowser(`http://${makeIp()}:${port}`)
   }
 }
 

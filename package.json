@@ -5,9 +5,9 @@
   "main": "index.js",
   "sideEffects": false,
   "scripts": {
-    "dev": "webpack-dev-server --config ./webpack/base/dev",
+    "dev": "node ./webpack/scripts/dev",
     "build": "webpack --config ./webpack/base/build",
-    "lx": "node ./webpack/scripts/dev"
+    "lx": "node ./webpack/scripts/build"
   },
   "repository": {
     "type": "git",
