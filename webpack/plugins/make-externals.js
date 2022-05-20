@@ -4,7 +4,7 @@ module.exports = function () {
   //   buildExternalsJs = globalLibs;
   // }
   return function (context, request, callback) {
-    console.log(5558,context, request, callback)
+    console.log(5558,process.argv.slice(2))
     // getRequest(context, request)
 
     // let str = externalsJsMap[request];

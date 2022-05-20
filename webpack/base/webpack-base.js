@@ -1,11 +1,10 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
-const cwd = process.cwd()
 
-module.exports =  function({env}){
+module.exports =  function(env,paths){
   return {
-    entry: ['./src/index.js'],
+    entry: path.resolve(paths.path, 'src','index.js'),
     module: {
       rules: [
         // {
@@ -35,22 +34,12 @@ module.exports =  function({env}){
         { // es6转es5
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
-          include:path.resolve(cwd,'src'),
           use: {
             loader: 'babel-loader', 
             options: {
               presets: [
-                [
-                  '@babel/preset-env',{
-                    useBuiltIns: "usage", //按需引入使用的polyfill
-                    corejs: { version: 3 }, //解决查找不到的core-js问题
-                    targets: { // 指定兼容性处理哪些浏览器
-                      "chrome": "78",
-                      "ie": "9"
-                    }
-                  },
-                  '@babel/preset-react'
-                ]
+                '@babel/preset-env',
+                '@babel/preset-react'
               ],
               cacheDirectory: true //开启babel缓存
             }
@@ -63,7 +52,7 @@ module.exports =  function({env}){
           use: [
             {
               loader: require.resolve(
-                path.resolve(cwd, 'webpack/config/make-page-helper')
+                path.resolve(paths.cwd, 'webpack/config/make-page-helper')
               )
             }
           ]
@@ -84,7 +73,7 @@ module.exports =  function({env}){
     },
     resolve:{
       alias:{
-        "@": path.resolve(cwd,'src'),
+        "@": path.resolve(paths.path,'src'),
       }
     },
     plugins: [

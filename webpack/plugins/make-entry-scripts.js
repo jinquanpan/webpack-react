@@ -6,7 +6,8 @@ class ModulePlugin {
   }
   apply(compiler) {
     const { paths } = this.options;
-    const assetsPublicPath =  '/webpack-react-1.0.0/'
+    const { name, version } = paths.branchConfig
+    const assetsPublicPath =  `/${name}/${version}/`
     compiler.plugin('emit', (compilation, next) => {
       let css = [];
       let js = [];

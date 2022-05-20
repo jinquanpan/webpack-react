@@ -1,7 +1,7 @@
 const env = {
-  MODE:'dev'
+  MODE:'dev',
+  PROJECT: process.argv.slice(2),
 }
 module.exports = {
-  'env': env,
-  stringified: { 'env': JSON.stringify(env) },
+  'env': {...env},
 }
