@@ -1,6 +1,6 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const {name,version} = require("../../package.json")
+
 const makeEntryScripts = require('../plugins/make-entry-scripts')
 const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 const makeExternals = require("../plugins/make-externals")
@@ -11,12 +11,13 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 
 
 module.exports = function(env, paths){
+  const base = require('./webpack-base')(env,paths)
+  console.log('paths', paths)
 
-  const base = require('./webpack-base')(env)
   const stringified = JSON.stringify(env)
   const build = {
     output: {
-      path: path.resolve(paths.appPath, `./${name}-${version}`),
+      path: path.resolve(paths.cwd,'build',paths.store),
       filename: 'js/[name].[contenthash:10].js',
       publicPath:'/', //所有输出资源在引入公共组件时的公共路径
       sourceMapFilename:'map/[name].[contenthash:10].js'
@@ -66,10 +67,10 @@ module.exports = function(env, paths){
       new webpack.DefinePlugin(stringified),
       new makeEntryScripts({paths}),
       new htmlWebpackPlugin({
-        template:'./public/index.html',// 静态文件要识别 htmlWebpackPlugin.options 属性要把html改成ejs文件
+        template:path.resolve(paths.path, 'public','index.html'),// 静态文件要识别 htmlWebpackPlugin.options 属性要把html改成ejs文件
         inject: false,  //是否引入js文件
         title:'<script type="text/javascript" src="//192.168.2.52:3001/js/app.js"></script>', 
-        script:`<script type="text/javascript" src="${paths.appPath}webpack-react-1.0.0//module/module.js"></script>`
+        script:`<script type="text/javascript" src="${paths.appPath}${paths.store}//module/module.js"></script>`
       }),
       ...base.plugins,
       // new webpack.DllPlugin({

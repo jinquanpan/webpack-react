@@ -3,7 +3,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
 
 module.exports =  function(env,paths){
-  console.log('paths',paths)
   return {
     entry: path.resolve(paths.path, 'src','index.js'),
     module: {
