@@ -1,5 +1,3 @@
-@Library('jenkins1')
-
 pipeline {
   agent {
     node webpack4
