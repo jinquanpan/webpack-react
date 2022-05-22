@@ -1,5 +1,9 @@
 pipeline {
-  agent none 
+  agent {
+    node {
+      label "webpack4"
+    }
+  } 
   environment {
     ROOT = "/data/dist/webpack-react"
   }
