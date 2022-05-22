@@ -1,7 +1,7 @@
 pipeline {
   agent none 
   environment {
-    ROOT = "/data/dist/webpack-react"
+    ROOT = "/data"
   }
   stages {
     stage('Hello') {
