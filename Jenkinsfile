@@ -1,7 +1,11 @@
+@Library('jenkins1')
+
 pipeline {
-  agent any 
+  agent {
+    node webpack4
+  } 
   environment {
-    ROOT = "/data"
+    ROOT = "/data/dist"
   }
   stages {
     stage('Hello') {
