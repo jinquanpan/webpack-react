@@ -1,10 +1,15 @@
-Jenkinsfile (Declarative Pipeline)
 pipeline {
-    agent { docker 'node:6.3' }
+    agent any
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                sh 'npm --version'
+                sh 'echo "Hello World"'
+                sh '''
+                    cd /data/dist/webpack-react
+                    echo "Multiline shell steps works too"
+                    ls -lah
+                    pwd
+                '''
             }
         }
     }
